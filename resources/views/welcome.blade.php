@@ -263,7 +263,7 @@
                                 <div class="clear"></div>
                             </div>
                             <p>
-                                <a href="{{route('checkout.create','premium')}}" class="btn btn-master btn-primary w-100 mt-3">
+                                <a href="{{route('checkout.create','kelas-premium')}}" class="btn btn-master btn-primary w-100 mt-3">
                                     Take This Plan
                                 </a>
                             </p>
