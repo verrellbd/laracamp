@@ -33,7 +33,7 @@ class UserController extends Controller
 
         // $user = User::firstOrCreate(['email' => $data['email']], $data);
         $user = User::whereEmail($data['email'])->first();
-        if(!$user){
+        if (!$user) {
             $user = User::create($data);
             Mail::to($user->email)->send(new AfterRegister($user));
         }
