@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\CheckoutController as AdminCheckout;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+
+//Socialite Route
+Route::get('sign-in-google', 'UserController@google')->name('user.login.google');
+Route::get('auth/google/callback', 'UserController@handleProviderCallback')->name('user.google.callback');
+
+//Midtrans Routes
+Route::get('payment/success', [CheckoutController::class, 'midtransCallback']);
+Route::post('payment/success', [CheckoutController::class, 'midtransCallback']);
+
 Route::middleware(['auth'])->group(function () {
     Route::get('checkout/success', 'User\CheckoutController@success')->name('checkout.success')->middleware('ensureUserRole:user');
     Route::get('checkout/{camp:slug}', 'User\CheckoutController@create')->name('checkout.create')->middleware('ensureUserRole:user');
@@ -33,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     //user dashboard
     Route::prefix('user/dashboard')->namespace('User')->name('user.')->middleware('ensureUserRole:user')->group(function () {
         Route::get('/', [UserDashboard::class, 'index'])->name('dashboard');
+        Route::get('checkout/invoice/{checkout}', [CheckoutController::class, 'invoice'])->name('checkout.invoice');
     });
 
     //admin dashboard
@@ -43,12 +53,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('checkout/{checkout}',  [AdminCheckout::class, 'update'])->name('checkout.update');
     });
 });
-
-
-//Socialite Route
-Route::get('sign-in-google', 'UserController@google')->name('user.login.google');
-Route::get('auth/google/callback', 'UserController@handleProviderCallback')->name('user.google.callback');
-
 
 
 

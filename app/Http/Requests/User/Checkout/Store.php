@@ -24,14 +24,16 @@ class Store extends FormRequest
      */
     public function rules()
     {
-        $expiedValidation = date('Y-m',time());
+        $expiedValidation = date('Y-m', time());
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,'.Auth::id().',id',
+            'email' => 'required|email|unique:users,email,' . Auth::id() . ',id',
             'occupation' => 'required|string',
-            'card_number' => 'required|numeric|digits_between:8,16',
-            'expired' => 'required|date|date_format:Y-m|after_or_equal:'.$expiedValidation,
-            'cvc'=> 'required|numeric|digits:3'
+            'phone' => 'required|string',
+            'address' => 'required|string',
+            // 'card_number' => 'required|numeric|digits_between:8,16',
+            // 'expired' => 'required|date|date_format:Y-m|after_or_equal:'.$expiedValidation,
+            // 'cvc'=> 'required|numeric|digits:3'
         ];
     }
 }
