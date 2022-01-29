@@ -12,7 +12,7 @@
                     WHAT A DAY!
                 </p>
                 <h2 class="primary-header ">
-                    Berhasil Checkout
+                    Silahkan menuju halaman dashboard dan lakukan pembayaran
                 </h2>
                 <a href="{{route('dashboard')}}" class="btn btn-primary mt-3">
                     My Dashboard
